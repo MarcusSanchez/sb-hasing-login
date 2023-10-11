@@ -1,0 +1,23 @@
+{% extends 'base.j2' %}
+{% block title %}Edit Feedback{% endblock %}
+
+{% block content %}
+  <h1>Edit Feedback</h1>
+  <form method="POST" action="/feedback/{{ feedback.id }}/update">
+    {{ form.hidden_tag() }}
+    {% for field in form.errors %}
+      <p>{{ field }}:</p>
+      <ul>
+        {% for error in form.errors[field] %}
+          <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
+    {% endfor %}
+
+    {% for field in form if field.widget.input_type != 'hidden' %}
+      <p>{{ field.label }} | {{ field }}</p>
+    {% endfor %}
+    <button>Save</button>
+  </form>
+{% endblock %}
+

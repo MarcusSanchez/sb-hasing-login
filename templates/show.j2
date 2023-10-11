@@ -1,0 +1,30 @@
+{% extends 'base.j2' %}
+{% block title %}{{ user.first_name }} {{ user.last_name }}{% endblock %}}
+
+{% block content %}
+  <h2>Feedback</h2>
+  <ul>
+    {% for feedback in user.feedback %}
+      <li>
+        <p>{{ feedback.title }}</p>
+        <p>{{ feedback.content }}</p>
+      </li>
+      <form>
+        {{ form.hidden_tag() }}
+
+        <button formmethod="GET" formaction="/feedback/{{ feedback.id }}/update">Edit</button>
+        <button formmethod="POST" formaction="/feedback/{{ feedback.id }}/delete">Delete</button>
+      </form>
+    {% endfor %}
+  </ul>
+
+  <a href="/users/{{ user.username }}/feedback/new">
+    Post feedback
+  </a>
+
+  <form>
+    <button formaction="/users/{{ user.username }}/delete" formmethod="POST">
+      Delete User
+    </button>
+  </form>
+{% endblock %}
